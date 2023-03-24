@@ -20,8 +20,10 @@ const renderColores = () => {
   );
 };
 app.handle("/", async (req) => {
-  const color : string  | null = req.query.get("color");
-  color && colores.push(color);
+  if (req.method==="POST") {
+    const color : string  | null = req.query.get("color");
+    color && colores.push(color);
+  }
   await req.respond({
     status: 200,
     headers: new Headers({
@@ -44,7 +46,7 @@ app.handle("/", async (req) => {
           <h1 id="title" className="text-center my-4">Formulario de Colores</h1>
           <hr className="w-75"/>
           <div className="w-100 d-flex justify-content-center">
-          <form className="d-flex row w-50 justify-content-center">
+          <form className="d-flex row w-50 justify-content-center" method="POST">
               <label htmlFor="color" className="text-center my-2">
                 Ingrese Color
               </label>           
